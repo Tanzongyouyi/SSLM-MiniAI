@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Just Fuck It</title>
+</head>
+<body>
+    <input id="input" type="text" placeholder="输入内容">
+    <button onclick="send()">发送</button>
+    <div id="output"></div>
+    <div id="speed"></div>
+    <script>
+        let ws = new WebSocket("ws://localhost:11451/ws");
+        function send() {
+            document.getElementById("output").innerText = "";
+            ws.send(document.getElementById("input").value);
+        }
+        ws.onmessage = function(event) {
+            let data = JSON.parse(event.data);
+            if (data.token === "[END]") return;
+            document.getElementById("output").innerText += data.token;
+            document.getElementById("speed").innerText = "tokens/s: " + data.tokens_per_s.toFixed(2);
+        }
+    </script>
+</body>
+</html>
