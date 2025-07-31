@@ -9,7 +9,7 @@ app = FastAPI()
 
 # 加载模型和tokenizer
 model = GPT(GPTConfig())
-checkpoint = torch.load('checkpoints/model_epoch_6.pt', map_location='cpu')
+checkpoint = torch.load('checkpoints/model_epoch_7.pt', map_location='cpu')
 model.load_state_dict(checkpoint['model_state_dict'])
 model.eval()
 tokenizer = MyDataset('data.jsonl')
@@ -24,7 +24,7 @@ async def websocket_endpoint(websocket: WebSocket):
         output_ids = input_ids.copy()
         start_time = time.time()
         token_count = 0
-        for _ in range(50):
+        for _ in range(30):
             with torch.no_grad():
                 out = model.generate(torch.tensor([output_ids], dtype=torch.long), 1)[0].tolist()
             new_token = out[-1]
