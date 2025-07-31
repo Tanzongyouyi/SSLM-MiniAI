@@ -16,7 +16,7 @@ torch.manual_seed(1024)
 
 @dataclass
 class GPTConfig:
-    block_size: int = 128   # 这里其实应该是文本的最大长度（ max_seq_len）
+    block_size: int = 256   # 这里其实应该是文本的最大长度（ max_seq_len）
     batch_size: int = 12
     n_layer: int = 6
     n_head: int = 12
@@ -191,9 +191,9 @@ class GPT(nn.Module):
 
 # 写一个 dataset，为了 Dataloader 准备
 class MyDataset(Dataset):
-    def __init__(self, path, block_size=128):
+    def __init__(self, path, block_size=256):
         # 我的数据在 /root/fs/mobvoi_seq_monkey_general_open_corpus.jsonl 中，
-        # 读取前 1000 行
+        # 读取前 200 行
         import tiktoken
         self.enc = tiktoken.get_encoding("gpt2")
         self.block_size = block_size
@@ -208,7 +208,7 @@ class MyDataset(Dataset):
 
         self.encoded_data = []
 
-        self.max_lines = 100
+        self.max_lines = 200
         raw_data = []
         with open(path, 'r', encoding='utf-8') as f:
             for i, line in enumerate(f):
