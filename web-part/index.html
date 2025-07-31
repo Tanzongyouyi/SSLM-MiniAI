@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Just fuck it.God damn AI!</title>
+    <style>
+        body {
+            background: #f5f6fa;
+            font-family: 'Segoe UI', 'PingFang SC', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff;
+            margin-top: 60px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            width: 420px;
+            max-width: 96vw;
+            padding: 32px 24px 16px 24px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-area {
+            min-height: 240px;
+            max-height: 320px;
+            overflow-y: auto;
+            margin-bottom: 18px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .bubble {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 18px;
+            margin: 6px 0;
+            max-width: 80%;
+            word-break: break-all;
+            font-size: 16px;
+        }
+        .user {
+            background: #e1f5fe;
+            align-self: flex-end;
+            color: #0277bd;
+        }
+        .ai {
+            background: #f1f8e9;
+            align-self: flex-start;
+            color: #558b2f;
+        }
+        .input-row {
+            display: flex;
+            margin-top: 16px;
+        }
+        #input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        #input:focus {
+            border: 1.5px solid #1976d2;
+        }
+        #send-btn {
+            margin-left: 10px;
+            padding: 0 22px;
+            background: #1976d2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        #send-btn:hover {
+            background: #1565c0;
+        }
+        #speed {
+            color: #888;
+            font-size: 13px;
+            margin-top: 8px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat-area" id="chat"></div>
+        <div class="input-row">
+            <input id="input" type="text" placeholder="输入内容，回车发送" onkeydown="if(event.key==='Enter'){send()}" autocomplete="off">
+            <button id="send-btn" onclick="send()">发送</button>
+        </div>
+        <div id="speed"></div>
+    </div>
+    <script>
+        let ws = new WebSocket("ws://localhost:11451/ws");
+        let aiBuffer = "";
+        function send() {
+            let input = document.getElementById("input");
+            let chat = document.getElementById("chat");
+            let userText = input.value.trim();
+            if (!userText) return;
+            // 显示用户气泡
+            let userBubble = document.createElement("div");
+            userBubble.className = "bubble user";
+            userBubble.innerText = userText;
+            chat.appendChild(userBubble);
+            // AI气泡
+            let aiBubble = document.createElement("div");
+            aiBubble.className = "bubble ai";
+            aiBubble.id = "ai-bubble";
+            aiBubble.innerText = "";
+            chat.appendChild(aiBubble);
+            chat.scrollTop = chat.scrollHeight;
+            aiBuffer = "";
+            ws.send(userText);
+            input.value = "";
+        }
+        ws.onmessage = function(event) {
+            let data = JSON.parse(event.data);
+            if (data.token === "[END]") return;
+            aiBuffer += data.token;
+            let aiBubble = document.getElementById("ai-bubble");
+            if (aiBubble) aiBubble.innerText = aiBuffer;
+            document.getElementById("speed").innerText = "tokens/s: " + data.tokens_per_s.toFixed(2);
+            let chat = document.getElementById("chat");
+            chat.scrollTop = chat.scrollHeight;
+        }
+    </script>
+</body>
+</html>
