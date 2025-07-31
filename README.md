@@ -7,11 +7,9 @@
 
 ### 2.文件结构
 SSLM-MiniAI</br>
-|   api-server.py # 本模型附带的api服务器</br>
 |   data.jsonl</br>
 |   data.txt</br>
 |   demo.py # 本模型的控制台对话工具</br>
-|   index.html # 本模型附带的在线访问页面</br>
 |   main.py</br>
 |   README.md</br>
 |   scissors.py # 数据处理工具，可将data.txt整合为符合格式要求的data.jasonl</br>
@@ -29,7 +27,6 @@ pip install torch fastapi uvicorn websockets tqdm tiktoken dataclasses
 2.准备好数据后，根据自身设备配置修改main.py</br>
 3.运行main.py，默认训练30轮，模型文件保存在checkpoints文件夹</br>
 4.运行demo.py，即可控制台对话</br>
-5.运行api-server.py，打开index.html即可在线对话。</br>
 
 ### 4.碎碎念
 
