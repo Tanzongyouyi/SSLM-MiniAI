@@ -2,7 +2,7 @@ import torch
 from main import GPT, GPTConfig, MyDataset
 
 # 加载模型
-checkpoint = torch.load('checkpoints/model_epoch_6.pt', map_location='cpu')
+checkpoint = torch.load('checkpoints/model_epoch_7.pt', map_location='cpu')
 model = GPT(GPTConfig())
 model.load_state_dict(checkpoint['model_state_dict'])
 model.eval()
