@@ -275,7 +275,7 @@ def main():
 
     # 打印模型一共有多少参数
     total_params = sum(p.numel() for p in model.parameters())
-    print("fTotal parameters:" {total_params / 1e6} "M")
+    print("fTotal parameters: {total_params / 1e6} M")
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=3e-4)
     # 设置 cosine 学习率
