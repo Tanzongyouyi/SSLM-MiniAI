@@ -5,7 +5,7 @@
 ### 1.概述
 这可能是我从2020年以来第一个拿得出手的项目，本模型的训练代码主要来源于 [LLMs-Zero-to-Hero](https://github.com/bbruceyuan/LLMs-Zero-to-Hero) ，感谢 [bbruceyuan](https://github.com/bbruceyuan) 的无私奉献。本仓库中的 [main.py](https://github.com/Tanzongyouyi/SSLM-MiniAI/blob/main/main.py) 是经过定制的训练代码，它对小型数据集和多核CPU有较好的支持，能够充分利用核心，以供无卡或集成显卡用户使用。
 
-本模型仅120M参数，数据集为 deepseek-r1:1.5b 的[对话记录](https://www.modelscope.cn/datasets/gongjy/minimind_dataset/file/view/master/r1_mix_1024.jsonl?id=68909&status=2)，本模型(v2.0)使用前2000行，每行取前384个字符，最终结果:Epoch: 3, Train Loss: 1.3873, Val Loss: 1.8201，已经可以输出一些无错误句子。
+本模型仅120M参数，数据集为 deepseek-r1:1.5b 的[对话记录](https://www.modelscope.cn/datasets/gongjy/minimind_dataset/file/view/master/r1_mix_1024.jsonl?id=68909&status=2)，本模型(v2.0)使用前2000行，每行取前384个字符，最终结果:Epoch: 14, Train Loss: 1.3873, Val Loss: 1.8201，已经可以输出一些无错误句子。
 
 对于 i5-1240p 这颗12核16线程的cpu，训练一轮大约需要20分钟。近期不更新v3.0，得去沉淀一下。
 
@@ -18,10 +18,10 @@ SSLM-MiniAI</br>
 |   newdata.jsonl # 微调数据</br>
 |   weitiao.py # 微调脚本</br>
 |   README.md</br>
-|   scissors.py # 数据处理工具，可将data.txt整合为符合格式要求的data.jasonl</br>
+|   scissors.py # 数据处理工具，可将data.txt整合为符合格式要求的data.jsonl</br>
 |   </br>
 +---checkpoints</br>
-|-------model_epoch_10.pt # 模型文件</br>
+|-------model_epoch_14.pt # 模型文件</br>
 
 ### 3.使用
 1.运行以下命令以下载支持库：
@@ -33,7 +33,7 @@ pip install torch fastapi uvicorn websockets tqdm tiktoken dataclasses
 2.准备好数据后，根据自身设备配置修改main.py</br>
 3.运行main.py，默认训练30轮，模型文件保存在checkpoints文件夹</br>
 4.运行demo.py，即可控制台对话</br>
-5.准备newdata.jsonl，运行weitiao.py即可微调模型，默认训练3轮
+5.准备newdata.jsonl，运行weitiao.py即可微调模型，默认训练5轮
 
 ### 4.碎碎念
 
@@ -43,5 +43,5 @@ pip install torch fastapi uvicorn websockets tqdm tiktoken dataclasses
 
 1.更新v1.0 √</br>
 2.更新v1.1 √</br>
-3.找到最佳组合并更新v2.0</br>
+3.更新v2.0 √</br>
 4.买2080Ti 22G
