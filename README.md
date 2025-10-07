@@ -2,7 +2,7 @@
 
 ## 最新消息:在Nvidia T4 GPU的加持下，即将推出新版本
 
-### 喜报！模型Val Loss已突破1.5！
+### 模型Val Loss已突破1.5！
 
 ### 1.概述
 这可能是我从2020年以来第一个拿得出手的项目，本模型的训练代码主要来源于 [LLMs-Zero-to-Hero](https://github.com/bbruceyuan/LLMs-Zero-to-Hero) ，感谢 [bbruceyuan](https://github.com/bbruceyuan) 的无私奉献。本仓库中的 [main.py](https://github.com/Tanzongyouyi/SSLM-MiniAI/blob/main/main.py) 是经过定制的训练代码，它对小型数据集和多核CPU有较好的支持，能够充分利用核心，以供无卡或集成显卡用户使用。
@@ -48,4 +48,5 @@ pip install torch fastapi uvicorn websockets tqdm tiktoken dataclasses
 2.更新v1.1 √</br>
 3.更新v2.0 √</br>
 4.买2080Ti 22G
+
 
