@@ -1,5 +1,7 @@
 ## ⭐SSLM-MiniAI⭐ 一个不太聪明的中文小模型
 
+## 最新消息:在Nvidia T4 GPU的加持下，即将推出新版本
+
 ### 喜报！模型Val Loss已突破1.5！
 
 ### 1.概述
@@ -46,3 +48,4 @@ pip install torch fastapi uvicorn websockets tqdm tiktoken dataclasses
 2.更新v1.1 √</br>
 3.更新v2.0 √</br>
 4.买2080Ti 22G
+
